@@ -2,6 +2,7 @@ Class = require 'middleclass'
 require("entity")
 require("ui.button")
 require("moon")
+require("level")
 
 function love.load()
 	-- load up sprite stuff -> globals 
@@ -12,8 +13,8 @@ function love.load()
 	ScalingFactor = 4 -- how much bigger do we actually want to see stuff
 
 	Entities = {}
-	local exampleMoon = Moon:new(12, 12, 0, 0, 8, 8)
-	table.insert(Entities, exampleMoon)
+	Level_1 = Level:new(10)
+	Level_1:load()
 
 	UIElements = {}
 

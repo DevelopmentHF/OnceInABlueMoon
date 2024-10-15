@@ -3,7 +3,8 @@ require("entity")
 Moon = Class("Moon", Entity)
 
 function Moon:initialize(x, y, spriteRow, spriteCol, spriteWidth, spriteHeight)
-	Entity.initialize(self, x, y, spriteRow, spriteCol, spriteWidth, spriteHeight)	
+	Entity.initialize(self, x, y, spriteRow, spriteCol, spriteWidth, spriteHeight)
+	self.isBlueMoon = false
 end
 
 function Moon:update(dt)
@@ -15,6 +16,18 @@ function Moon:update(dt)
 			self:destroy()
 		end
 	end
+end
+
+function Moon:draw()
+	if self.isBlueMoon then
+		love.graphics.setColor(0, 0, 1, 0.8)
+		Entity.draw(self)
+	else
+		love.graphics.setColor(1, 1, 1, 1)
+		Entity.draw(self)
+	end
+	
+	love.graphics.setColor(1, 1, 1, 1)
 end
 
 function Moon:isMouseOver(mouseX, mouseY)
