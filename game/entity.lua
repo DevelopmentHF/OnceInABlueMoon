@@ -22,5 +22,7 @@ function Entity:update(dt)
 end
 
 function Entity:draw()
-	love.graphics.draw(TileSheet, self.spriteQuad, self.position.x - self.spriteWidth/2, self.position.y - self.spriteHeight /2)
+	-- not using box2d so might not have to offset
+	--love.graphics.draw(TileSheet, self.spriteQuad, self.position.x - self.spriteWidth/2, self.position.y - self.spriteHeight /2)
+	love.graphics.draw(TileSheet, self.spriteQuad, self.position.x, self.position.y)
 end

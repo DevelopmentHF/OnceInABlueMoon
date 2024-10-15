@@ -1,6 +1,7 @@
 Class = require 'middleclass'
 require("entity")
 require("ui.button")
+require("moon")
 
 function love.load()
 	-- load up sprite stuff -> globals 
@@ -10,15 +11,11 @@ function love.load()
 	TileSheet:setFilter("nearest", "nearest") -- pixel perfect
 	ScalingFactor = 4 -- how much bigger do we actually want to see stuff
 
-	-- example entity setup
 	Entities = {}
-	local exampleEntity = Entity:new(12, 12, 6, 1, 8, 8)
-	table.insert(Entities, exampleEntity)
+	local exampleMoon = Moon:new(12, 12, 6, 1, 8, 8)
+	table.insert(Entities, exampleMoon)
 
-	-- example button setup
 	UIElements = {}
-	local exampleButton = Button:new(240, 240, "Button Name", 10)
-	table.insert(UIElements, exampleButton)
 
 	-- background
 	Bg = love.graphics.newImage("assets/bg.png")
