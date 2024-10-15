@@ -12,13 +12,14 @@ function love.load()
 	ScalingFactor = 4 -- how much bigger do we actually want to see stuff
 
 	Entities = {}
-	local exampleMoon = Moon:new(12, 12, 6, 1, 8, 8)
+	local exampleMoon = Moon:new(12, 12, 0, 0, 8, 8)
 	table.insert(Entities, exampleMoon)
 
 	UIElements = {}
 
 	-- background
 	Bg = love.graphics.newImage("assets/bg.png")
+	Bg:setFilter("nearest", "nearest")
 end
 
 function love.update(dt)
