@@ -15,6 +15,10 @@ function GameOverState:update(dt)
 end
 
 function GameOverState:draw()
-    love.graphics.printf("Game Over! Press Space to Restart", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
+	if GameOverFlag then
+    	love.graphics.printf("Game over, you lose! Press Space to Restart", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
+	else
+    	love.graphics.printf("You win! Press Space to Restart", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
+	end
 end
 

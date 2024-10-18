@@ -13,6 +13,8 @@ function love.load()
     AnimationGrid = Anim8.newGrid(8, 8, TileSheet:getWidth(), TileSheet:getHeight())
 	
 	Font = love.graphics.newFont("assets/font/PressStart2P-Regular.ttf")
+	local cursor = love.mouse.newCursor("assets/cursor.png", 4, 4)
+	love.mouse.setCursor(cursor)
 
     Entities = {}
     UIElements = {}

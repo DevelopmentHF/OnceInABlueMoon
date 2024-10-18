@@ -1,7 +1,9 @@
 require("states.gameoverstate")
+require("components.cloud")
 require("components.state")
 require("components.moon")
 require("components.entity")
+require("components.star")
 
 LevelState = Class('LevelState', State)
 
@@ -19,18 +21,51 @@ function LevelState:initialize(numMoons, duration)
 	Tint = self.currentColour
 end
 
+local function generateSpawnPosition()
+	local width, height = love.graphics.getWidth()/ScalingFactor, love.graphics.getHeight()/ScalingFactor -- Get screen dimensions
+	local x = math.random(8, width - 8)
+	local y = math.random(8, height - 8)
+	
+	return x, y
+end
+
+local function getAllMoons()
+	-- Collect all moon instances in a separate table
+	local moons = {}
+
+	for _, entity in ipairs(Entities) do
+		if entity:isInstanceOf(Moon) then
+			table.insert(moons, entity)
+		end
+	end
+
+	return moons
+end
+
 function LevelState:enter()
     Entities = {}
-	local width, height = love.graphics.getWidth()/ScalingFactor, love.graphics.getHeight()/ScalingFactor -- Get screen dimensions
+
+	-- load up clouds and stars for ambiance
+	for i = 1, math.random(5, 15), 1 do
+		local starX, starY = generateSpawnPosition()
+		local newStar = Star:new(starX, starY, 1, 1, 3, 8, 8, 0.1)
+		table.insert(Entities, newStar)
+	end
+	for i = 1, math.random(2, 7), 1 do
+		local cloudX, cloudY = generateSpawnPosition()
+		local newCloud = Cloud:new(cloudX, cloudY, 1, 4, 2, 8, 8, 0.4)
+		table.insert(Entities, newCloud)
+	end
+	
+
+
 	local moonRadius = 8 
 	local count = 0
 
 	math.randomseed(os.time())
 
     while count < self.numMoons do
-        local x = math.random(moonRadius, width - moonRadius)  -- Random X position
-        local y = math.random(moonRadius, height - moonRadius)  -- Random Y position
-
+		local x,y = generateSpawnPosition()
         -- Check for overlap with existing moons
         local overlap = false
         for _, moon in ipairs(Entities) do
@@ -52,14 +87,7 @@ function LevelState:enter()
         end
     end
 
-	-- Collect all moon instances in a separate table
-	local moons = {}
-
-	for _, entity in ipairs(Entities) do
-		if entity:isInstanceOf(Moon) then
-			table.insert(moons, entity)
-		end
-	end
+	local moons = getAllMoons()
 
 	-- Ensure there is at least one moon
 	if #moons > 0 then
@@ -94,6 +122,8 @@ function LevelState:update(dt)
 
     -- Switch to GameOverState if no blue moon remain
     if GameOverFlag then
+        stateManager:switch(GameOverState:new())
+	elseif  #getAllMoons() == 1 then
         stateManager:switch(GameOverState:new())
     end
 end

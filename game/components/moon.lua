@@ -65,8 +65,12 @@ function Moon:removeFromEntities()
 			break
 		end
 	end
-
+	
+	-- decide whether to end game and what sound to play
 	if self.isBlueMoon then
 		GameOverFlag = true
+		love.audio.newSource("assets/sfx/blueMoon.wav", "static"):play()
+	else
+		love.audio.newSource("assets/sfx/normalMoon.wav", "static"):play()
 	end
 end

@@ -59,7 +59,7 @@ function Button:draw()
     
     local textX = self.position.x + (self.width - textWidth) / 2
     local textY = self.position.y + (self.height - textHeight) / 2
-    love.graphics.print(self.label, textX, textY)
+    love.graphics.printf(self.label, Font, textX, textY)
 
     love.graphics.setColor(1, 1, 1)
 end
