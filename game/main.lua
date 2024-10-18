@@ -1,4 +1,3 @@
-Gamestate = require 'utils.gamestate'
 Class = require 'utils.middleclass'
 Anim8 = require 'utils.anim8'
 require("components.statemanager")
@@ -12,6 +11,8 @@ function love.load()
     ScalingFactor = 4
 
     AnimationGrid = Anim8.newGrid(8, 8, TileSheet:getWidth(), TileSheet:getHeight())
+	
+	Font = love.graphics.newFont("assets/font/PressStart2P-Regular.ttf")
 
     Entities = {}
     UIElements = {}

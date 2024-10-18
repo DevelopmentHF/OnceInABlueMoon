@@ -1,14 +1,18 @@
+require("states.gameoverstate")
+require("components.state")
 require("components.moon")
+require("components.entity")
 
-Level = Class("Level")
+LevelState = Class('LevelState', State)
 
-function Level:initialize(numMoons)
+function LevelState:initialize(numMoons)
 	self.numMoons = numMoons
 end
 
--- loads the level up with content
-function Level:load()
-    local width, height = love.graphics.getWidth()/ScalingFactor, love.graphics.getHeight()/ScalingFactor -- Get screen dimensions
+
+function LevelState:enter()
+    Entities = {}
+	local width, height = love.graphics.getWidth()/ScalingFactor, love.graphics.getHeight()/ScalingFactor -- Get screen dimensions
 	local moonRadius = 8 
 	local count = 0
 
@@ -54,4 +58,34 @@ function Level:load()
 		local randomIndex = math.random(1, #moons)
 		moons[randomIndex].isBlueMoon = true
 	end
+
 end
+
+function LevelState:update(dt)
+    -- Update all entities
+    for _, value in ipairs(Entities) do
+		value:update(dt)
+    end
+
+    -- Switch to GameOverState if no blue moon remain
+    if GameOverFlag then
+        stateManager:switch(GameOverState:new())
+    end
+end
+
+function LevelState:draw()
+    love.graphics.push()
+    love.graphics.scale(ScalingFactor, ScalingFactor)
+    
+    love.graphics.setColor(0, 0, 1, 0.7)
+    love.graphics.draw(Bg)
+    love.graphics.setColor(1, 1, 1, 1)
+
+    -- Draw all entities
+    for _, value in ipairs(Entities) do
+        value:draw()
+    end
+
+    love.graphics.pop()
+end
+

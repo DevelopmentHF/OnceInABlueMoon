@@ -1,4 +1,4 @@
-require("states.level1state")
+require("states.levelstate")
 require("components.state")
 
 StartState = Class('StartState', State)
@@ -10,10 +10,10 @@ end
 function StartState:update(dt)
     -- Press any key to start the game
     if love.keyboard.isDown("space") then
-        stateManager:switch(Level1State:new())
+        stateManager:switch(LevelState:new(10))
     end
 end
 
 function StartState:draw()
-    love.graphics.printf("Press Space to Start", 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
+    love.graphics.printf("Press Space to Start", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
 end
