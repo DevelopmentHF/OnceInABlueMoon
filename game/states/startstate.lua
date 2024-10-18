@@ -10,7 +10,7 @@ end
 function StartState:update(dt)
     -- Press any key to start the game
     if love.keyboard.isDown("space") then
-        stateManager:switch(LevelState:new(10))
+        stateManager:switch(LevelState:new(10, 60))
     end
 end
 
