@@ -23,3 +23,5 @@ function StateManager:draw()
         self.currentState:draw()
     end
 end
+
+

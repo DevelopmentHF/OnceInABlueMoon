@@ -43,3 +43,8 @@ function love.draw()
     stateManager:draw()
 end
 
+function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()  -- Close the game
+    end
+end

@@ -10,6 +10,7 @@ end
 function StartState:update(dt)
     -- Press any key to start the game
     if love.keyboard.isDown("space") then
+		love.audio.newSource("assets/sfx/pickupCoin.wav", "static"):play()
         stateManager:switch(LevelState:new(10, 10))
     end
 end

@@ -9,6 +9,7 @@ end
 function GameOverState:update(dt)
     -- Restart the game by pressing space
     if love.keyboard.isDown("space") then
+		love.audio.newSource("assets/sfx/pickupCoin.wav", "static"):play()
 		GameOverFlag = false
 		Difficulty = Difficulty * 0.9 -- 10% harder each level
         stateManager:switch(LevelState:new(10, 10))
