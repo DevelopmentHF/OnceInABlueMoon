@@ -10,7 +10,7 @@ function GameOverState:update(dt)
     -- Restart the game by pressing space
     if love.keyboard.isDown("space") then
 		GameOverFlag = false
-        stateManager:switch(LevelState:new(5, 30))
+        stateManager:switch(LevelState:new(10, 5))
     end
 end
 

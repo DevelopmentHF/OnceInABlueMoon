@@ -30,13 +30,14 @@ end
 
 function Moon:draw()
 	if self.isBlueMoon then
-		love.graphics.setColor(0, 0, 1, 0.8)
+		local bluerTint = {Tint[1], Tint[2], Tint[3], Tint[4]}
+        bluerTint[3] = Tint[3] * Difficulty  -- Increase blue
+		love.graphics.setColor(bluerTint)
 	else
-		love.graphics.setColor(1, 1, 1, 1)
+		love.graphics.setColor(Tint)
 	end
 	
 	Entity.draw(self)
-	love.graphics.setColor(1, 1, 1, 1)
 end
 
 function Moon:isMouseOver(mouseX, mouseY)

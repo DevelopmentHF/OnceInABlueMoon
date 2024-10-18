@@ -5,14 +5,18 @@ require("components.entity")
 
 LevelState = Class('LevelState', State)
 
+Tint = {1, 1, 1, 1}
+Difficulty = 1.5
+
 function LevelState:initialize(numMoons, duration)
 	self.numMoons = numMoons
 	self.duration = duration
 	self.elapsedTime = 0
 
 	self.nightColour = {0.1, 0.1, 0.5, 0.7}
-	self.dawnColour = {1, 0.5, 0.1, 1}
+	self.dawnColour = {1, 0.6, 0.2, 1}
 	self.currentColour = self.nightColour
+	Tint = self.currentColour
 end
 
 function LevelState:enter()
@@ -81,6 +85,7 @@ function LevelState:update(dt)
 	-- update timing for level 
 	self.elapsedTime = self.elapsedTime + dt
 	self.currentColour = lerp(math.min(self.elapsedTime/self.duration, 1), self.nightColour, self.dawnColour)
+	Tint = self.currentColour
 
     -- Update all entities
     for _, value in ipairs(Entities) do
@@ -101,7 +106,6 @@ function LevelState:draw()
 	-- use self.elapsedTime/self.duration to transition from night to day
     love.graphics.setColor(self.currentColour)
     love.graphics.draw(Bg)
-    love.graphics.setColor(1, 1, 1, 1)
 
     -- Draw all entities
     for _, value in ipairs(Entities) do
