@@ -1,4 +1,5 @@
-Class = require 'middleclass'
+Class = require 'utils.middleclass'
+Anim8 = require 'utils.anim8'
 require("entity")
 require("ui.button")
 require("moon")
@@ -11,6 +12,8 @@ function love.load()
 	TileSheet = love.graphics.newImage("assets/spritesheet.png")
 	TileSheet:setFilter("nearest", "nearest") -- pixel perfect
 	ScalingFactor = 4 -- how much bigger do we actually want to see stuff
+
+	AnimationGrid = Anim8.newGrid(8, 8, TileSheet:getWidth(), TileSheet:getHeight())
 
 	Entities = {}
 	Level_1 = Level:new(10)
@@ -25,12 +28,12 @@ end
 
 function love.update(dt)
 	-- update all entities
-	for index, value in ipairs(Entities) do
+	for _, value in ipairs(Entities) do
 		value:update(dt)
 	end
 
 	-- update all ui elements
-	for index, value in ipairs(UIElements) do
+	for _, value in ipairs(UIElements) do
 		value:update(dt)
 	end
 end
@@ -39,17 +42,19 @@ function love.draw()
 	love.graphics.push()
 	love.graphics.scale(ScalingFactor, ScalingFactor)
 	
+	love.graphics.setColor(0, 0, 1, 0.7)
 	love.graphics.draw(Bg)
+	love.graphics.setColor(1,1,1,1)
 
 	-- draw all entities
-	for index, value in ipairs(Entities) do
+	for _, value in ipairs(Entities) do
 		value:draw()
 	end
 
 	love.graphics.pop()
 
 	-- draw all ui elements last!
-	for index, value in ipairs(UIElements) do
+	for _, value in ipairs(UIElements) do
 		value:draw()
 	end
 end

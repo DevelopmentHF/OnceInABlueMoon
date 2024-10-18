@@ -2,31 +2,40 @@ require("entity")
 
 Moon = Class("Moon", Entity)
 
-function Moon:initialize(x, y, spriteRow, spriteCol, spriteWidth, spriteHeight)
-	Entity.initialize(self, x, y, spriteRow, spriteCol, spriteWidth, spriteHeight)
+function Moon:initialize(x, y, startFrame, endFrame, spriteRow, spriteWidth, spriteHeight, animationDuration)
+	Entity.initialize(self, x, y, startFrame, endFrame, spriteRow, spriteWidth, spriteHeight, animationDuration)
 	self.isBlueMoon = false
+	self.isDestroyed = false
+
+	self.animation:pauseAtStart()
 end
 
 function Moon:update(dt)
+	Entity.update(self, dt)
+
 	-- Check for mouse click
-	if love.mouse.isDown(1) then -- 1 for left mouse button
+	if love.mouse.isDown(1) and not self.isDestroyed then -- 1 for left mouse button
 		local mouseX, mouseY = love.mouse.getPosition()
 
 		if self:isMouseOver(mouseX, mouseY) then
 			self:destroy()
 		end
 	end
+
+	-- Remove the moon after the animation plays once
+	if self.isDestroyed and self.animation.position == #self.animation.frames then
+		self:removeFromEntities()
+	end
 end
 
 function Moon:draw()
 	if self.isBlueMoon then
 		love.graphics.setColor(0, 0, 1, 0.8)
-		Entity.draw(self)
 	else
 		love.graphics.setColor(1, 1, 1, 1)
-		Entity.draw(self)
 	end
 	
+	Entity.draw(self)
 	love.graphics.setColor(1, 1, 1, 1)
 end
 
@@ -42,6 +51,12 @@ function Moon:isMouseOver(mouseX, mouseY)
 end
 
 function Moon:destroy()
+	self.isDestroyed = true -- Mark for destruction
+	self.animation:resume() -- Resume the animation
+	self.animation:gotoFrame(1) -- Restart the animation from the first frame
+end
+
+function Moon:removeFromEntities()
 	-- Remove the moon from the Entities table
 	for i, entity in ipairs(Entities) do
 		if entity == self then

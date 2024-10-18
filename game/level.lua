@@ -32,7 +32,7 @@ function Level:load()
 
         -- If no overlap, create and add the moon to the table
         if not overlap then
-            local newMoon = Moon:new(x, y, 0, 0, 8, 8)  -- Create a new Moon instance
+            local newMoon = Moon:new(x, y, 1, 4, 1, 8, 8, 0.1)  -- Create a new Moon instance
             table.insert(Entities, newMoon)  -- Add the moon to the moons table
 			count = count + 1
 			print("new moon at " .. x .." " .. y)
