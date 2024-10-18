@@ -1,9 +1,9 @@
 Class = require 'utils.middleclass'
 Anim8 = require 'utils.anim8'
-require("entity")
+require("components.entity")
 require("ui.button")
-require("moon")
-require("level")
+require("components.moon")
+require("components.level")
 
 function love.load()
 	-- load up sprite stuff -> globals 

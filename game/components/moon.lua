@@ -1,4 +1,4 @@
-require("entity")
+require("components.entity")
 
 Moon = Class("Moon", Entity)
 

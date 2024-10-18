@@ -1,4 +1,4 @@
-require("moon")
+require("components.moon")
 
 Level = Class("Level")
 
