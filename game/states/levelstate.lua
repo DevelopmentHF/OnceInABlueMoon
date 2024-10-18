@@ -9,6 +9,7 @@ LevelState = Class('LevelState', State)
 
 Tint = {1, 1, 1, 1}
 Difficulty = 1.5
+WinCount = 0
 
 function LevelState:initialize(numMoons, duration)
 	self.numMoons = numMoons
@@ -120,10 +121,16 @@ function LevelState:update(dt)
 		value:update(dt)
     end
 
+	if self.elapsedTime > self.duration then
+		GameOverFlag = true
+	end
+
     -- Switch to GameOverState if no blue moon remain
     if GameOverFlag then
         stateManager:switch(GameOverState:new())
+		Difficulty = 1.5
 	elseif  #getAllMoons() == 1 then
+		WinCount = WinCount + 1
         stateManager:switch(GameOverState:new())
     end
 end

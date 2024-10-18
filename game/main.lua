@@ -16,6 +16,12 @@ function love.load()
 	local cursor = love.mouse.newCursor("assets/cursor.png", 4, 4)
 	love.mouse.setCursor(cursor)
 
+	-- music
+	local music = love.audio.newSource("assets/sfx/HerdingPidgeons.mp3", "stream")
+	music:play()
+	music:setLooping(true)
+	music:setVolume(0.7)
+
     Entities = {}
     UIElements = {}
 
