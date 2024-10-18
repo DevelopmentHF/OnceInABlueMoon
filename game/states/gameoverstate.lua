@@ -22,7 +22,7 @@ function GameOverState:draw()
     	love.graphics.printf("Game over, you lose! Press Space to Restart", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
     	love.graphics.printf("You had " .. WinCount .. " wins", Font, 0, love.graphics.getHeight() - (love.graphics.getHeight() / 3), love.graphics.getWidth(), "center")
 	else
-    	love.graphics.printf("You Win! Press Space to Continue", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
+    	love.graphics.printf("Next level! Press Space to Continue", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
 	end
 end
 

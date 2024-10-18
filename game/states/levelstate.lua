@@ -1,14 +1,15 @@
+require("components.state")
 require("states.gameoverstate")
 require("components.cloud")
-require("components.state")
 require("components.moon")
 require("components.entity")
 require("components.star")
+require("components.powerups.freeze")
 
 LevelState = Class('LevelState', State)
 
 Tint = {1, 1, 1, 1}
-Difficulty = 1.5
+Difficulty = 1.7
 WinCount = 0
 
 function LevelState:initialize(numMoons, duration)
@@ -81,7 +82,13 @@ function LevelState:enter()
 
         -- If no overlap, create and add the moon to the table
         if not overlap then
-            local newMoon = Moon:new(x, y, 1, 4, 1, 8, 8, 0.1)  -- Create a new Moon instance
+			local rng = math.random(1,10)
+			local newMoon
+			if rng % 2 == 0 then
+            	newMoon = Moon:new(x, y, 1, 4, 1, 8, 8, 0.1)  -- Create a new Moon instance
+			else
+				newMoon = Moon:new(x, y, 1, 4, 4, 8, 8, 0.1)
+			end
             table.insert(Entities, newMoon)  -- Add the moon to the moons table
 			count = count + 1
 			print("new moon at " .. x .." " .. y)
@@ -109,12 +116,23 @@ local function lerp(t, color1, color2)
     }
 end
 
+function LevelState:potentialPowerup(probabilty)
+	math.randomseed(os.time())
+	local x,y = generateSpawnPosition()
+	if math.random(1, 100) <= probabilty then
+		local newPowerup = Freeze:new(x, y, 1, 3, 5, 8, 8, 0.1, self)
+		table.insert(Entities, newPowerup)
+	end
+end
 
 function LevelState:update(dt)
 	-- update timing for level 
 	self.elapsedTime = self.elapsedTime + dt
 	self.currentColour = lerp(math.min(self.elapsedTime/self.duration, 1), self.nightColour, self.dawnColour)
 	Tint = self.currentColour
+
+	-- Potentially spawn a powerup
+	self:potentialPowerup(5) -- 5% chance per update
 
     -- Update all entities
     for _, value in ipairs(Entities) do
