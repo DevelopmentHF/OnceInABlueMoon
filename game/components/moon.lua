@@ -64,4 +64,8 @@ function Moon:removeFromEntities()
 			break
 		end
 	end
+
+	if self.isBlueMoon then
+		GameOverFlag = true
+	end
 end

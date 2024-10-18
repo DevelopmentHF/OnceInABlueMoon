@@ -14,13 +14,15 @@ function Level1State:enter()
 end
 
 function Level1State:update(dt)
+	local isBlueMoonPresent = false 
+
     -- Update all entities
     for _, value in ipairs(Entities) do
-        value:update(dt)
+		value:update(dt)
     end
 
-    -- Switch to GameOverState if no entities remain
-    if #Entities == 0 then
+    -- Switch to GameOverState if no blue moon remain
+    if GameOverFlag then
         stateManager:switch(GameOverState:new())
     end
 end

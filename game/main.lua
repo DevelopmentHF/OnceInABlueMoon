@@ -21,6 +21,7 @@ function love.load()
     Bg:setFilter("nearest", "nearest")
 
     -- Initialize the StateManager and switch to the start state
+	GameOverFlag = false
     stateManager = StateManager:new()
     stateManager:switch(StartState:new())
 end
