@@ -21,6 +21,11 @@ function LevelState:initialize(numMoons, duration)
 	self.dawnColour = {1, 0.6, 0.2, 1}
 	self.currentColour = self.nightColour
 	Tint = self.currentColour
+
+	self.tickTimer = 0
+	self.tickInterval = 1  -- Start with 1 second between ticks
+
+	self.tickSound = love.audio.newSource("assets/sfx/timeRunningOut.wav", "static")
 end
 
 local function generateSpawnPosition()
@@ -143,9 +148,25 @@ function LevelState:update(dt)
 		GameOverFlag = true
 	end
 
+	self.tickInterval = math.max(0.1, 1 - (self.elapsedTime / self.duration))
+	self.tickTimer = self.tickTimer + dt
+
+    -- If the timer exceeds the current interval, play the tick sound
+    if self.tickTimer >= self.tickInterval then
+        -- Play the tick sound
+        if self.tickSound:isPlaying() then
+            self.tickSound:stop()
+        end
+        self.tickSound:play()
+
+        -- Reset the tick timer
+        self.tickTimer = 0
+    end	
+
     -- Switch to GameOverState if no blue moon remain
     if GameOverFlag then
         stateManager:switch(GameOverState:new())
+		love.audio.newSource("assets/sfx/gameOver.mp3", "static"):play()
 		Difficulty = 1.5
 	elseif  #getAllMoons() == 1 then
 		WinCount = WinCount + 1

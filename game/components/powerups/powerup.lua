@@ -58,6 +58,8 @@ function Powerup:removeFromEntities()
 		end
 	end
 
-	love.audio.newSource("assets/sfx/powerUp.wav", "static"):play()
+	local sound = love.audio.newSource("assets/sfx/powerUp.wav", "static")
+	sound:setVolume(0.4)
+	sound:play()
 end
 
