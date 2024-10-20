@@ -1,5 +1,5 @@
 function love.conf(t)
-	t.title = "Love2D Template"
+	t.title = "Once In A Blue Moon"
 	t.console = true
 	t.window.width = 160 * 4
 	t.window.height = 144 * 4
