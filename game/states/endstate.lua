@@ -1,12 +1,10 @@
-require("components.state")
+EndState = Class('GameOverState', State)
 
-GameOverState = Class('GameOverState', State)
-
-function GameOverState:enter()
+function EndState:enter()
 	State.enter(self)
 end
 
-function GameOverState:update(dt)
+function EndState:update(dt)
     -- Restart the game by pressing space
     if love.keyboard.isDown("space") then
 		love.audio.newSource("assets/sfx/pickupCoin.wav", "static"):play()
@@ -16,7 +14,7 @@ function GameOverState:update(dt)
     end
 end
 
-function GameOverState:draw()
+function EndState:draw()
 	love.graphics.push()
     love.graphics.scale(ScalingFactor, ScalingFactor)
 
@@ -32,4 +30,5 @@ function GameOverState:draw()
     	love.graphics.printf("Next level! Press Space to Continue", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
 	end
 end
+
 

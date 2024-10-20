@@ -1,10 +1,10 @@
 require("components.state")
-require("states.gameoverstate")
 require("components.cloud")
 require("components.moon")
 require("components.entity")
 require("components.star")
 require("components.powerups.freeze")
+require("states.endstate")
 
 LevelState = Class('LevelState', State)
 
@@ -165,12 +165,12 @@ function LevelState:update(dt)
 
     -- Switch to GameOverState if no blue moon remain
     if GameOverFlag then
-        stateManager:switch(GameOverState:new())
+        stateManager:switch(EndState:new())
 		love.audio.newSource("assets/sfx/gameOver.mp3", "static"):play()
 		Difficulty = 1.5
 	elseif  #getAllMoons() == 1 then
 		WinCount = WinCount + 1
-        stateManager:switch(GameOverState:new())
+        stateManager:switch(EndState:new())
     end
 end
 
