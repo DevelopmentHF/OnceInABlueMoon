@@ -3,7 +3,7 @@ require("components.state")
 GameOverState = Class('GameOverState', State)
 
 function GameOverState:enter()
-    -- Initialize game over data
+	State.enter(self)
 end
 
 function GameOverState:update(dt)
@@ -17,6 +17,13 @@ function GameOverState:update(dt)
 end
 
 function GameOverState:draw()
+	love.graphics.push()
+    love.graphics.scale(ScalingFactor, ScalingFactor)
+
+    love.graphics.setColor(0.1, 0.1, 0.5, 0.7)
+    love.graphics.draw(Bg)
+	love.graphics.pop()
+
 	love.graphics.setColor(1,1,1,1)
 	if GameOverFlag then
     	love.graphics.printf("Game over, you lose! Press Space to Restart", Font, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
