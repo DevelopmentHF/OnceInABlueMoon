@@ -3,6 +3,7 @@ require("components.state")
 
 StartState = Class('StartState', State)
 
+-- TODO: Make this a singleton
 function StartState:enter()
     -- Initialize any data for the start state
 end
@@ -27,6 +28,6 @@ function StartState:draw()
 	love.graphics.pop()
 
     love.graphics.printf("Once In a Blue Moon", BigFont, 0, love.graphics.getHeight() / 2, love.graphics.getWidth(), "center")
-    love.graphics.printf("Press Space to Start", Font, 0, love.graphics.getHeight() - (love.graphics.getHeight() / 4), love.graphics.getWidth(), "center")
+    love.graphics.printf("Press [Space] to Start", Font, 0, love.graphics.getHeight() - (love.graphics.getHeight() / 4), love.graphics.getWidth(), "center")
 
 end
